@@ -16,3 +16,4 @@ gradle.properties
 gradlew
 gradlew.bat
 app/build
+/app/*.keystore
