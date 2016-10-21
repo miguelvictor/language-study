@@ -13,10 +13,29 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        release {
+            try {
+                storeFile file(KEYSTORE_FILENAME)
+                storePassword KEYSTORE_PASSWORD
+                keyAlias KEYSTORE_KEY_ALIAS
+                keyPassword KEYSTORE_KEY_PASSWORD
+            }
+            catch (ignored) {
+                throw new InvalidUserDataException("You should define KEYSTORE properties in gradle.properties.")
+            }
+        }
+    }
     buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+        }
         release {
             minifyEnabled true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
